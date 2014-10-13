@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+    <persistence-unit name="lattes" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>lattes</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.archive.autodetection" value="class, hbm"/>
+      
+            <property name="hibernate.search.default.directory_provider" value="filesystem"/> 
+            <property name="hibernate.search.default.indexBase" value="/home/adelmir/NetBeansProjects/lattes/lucene/indexes"/> 
+            
+            <property name="hibernate.cache.use_second_level_cache">true</property>  
+            <property name="hibernate.cache.use_query_cache">true</property> 
+            <property name="hibernate.cache.use_minimal_puts">true</property> 
+<!--            <prop key="hibernate.cache.use_second_level_cache">true</prop>
+            <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+            <prop key="hibernate.cache.provider_configuration_file_resource_path">hibernate-ehcache.xml</prop>
+            <prop key="hibernate.cache.use_query_cache">true</prop>
+            <prop key="hibernate.generate_statistics">true</prop>
+            <prop key="hibernate.cache.use_structured_entries">true</prop> 
+                        
+<property name= "hibernate.search.[default|
+    <indexname>].directory_provider infinispan</indexname>"/>   
+    <property name="hibernate.search.[default|
+        <indexname>].infinispan.cachemanager_jndiname = [jndiname]"</indexname>/>   
+        <property name="hibernate.search.[default|
+            <indexname>].infinispan.configuration_resourcename = [infinispan configuration filename]</indexname>"/> -->
+        </properties>
+    </persistence-unit>
+</persistence>

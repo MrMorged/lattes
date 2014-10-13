@@ -1,0 +1,345 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20/07/2014, 17:18:57
+    Author     : Adelmir
+*/
+
+.container {
+    margin: 0 auto;
+    width: 984px;
+}
+
+ul{
+    list-style: none !important;
+}
+
+#footer {
+    
+    position:absolute;
+	bottom:0;
+	left:0;
+        
+    font-weight: bold;      
+    overflow: hidden;    
+    text-align: center;
+    padding: 0 0px;
+    height: 60px;
+    line-height: 25px;    
+    background-color: #0C5500;
+    color: #EDEDED;     
+    background: url("#{resource['img/rodape.png']}") repeat scroll 0 0 transparent;
+}
+
+/* início do cabeçalho */
+
+#logo {            
+    float:left;
+    width: 200px;
+    height: 100px;
+    font-size: 35px;
+    color: yellowgreen; 
+    margin-top: 15px;
+}
+
+#pesquisa {    
+    height: 100px;   
+}
+
+#dadosPesquisa {
+    width: 600px;
+    height: 30px;
+    margin-top: 30px;
+    margin-left: 30px;
+
+}
+
+/* fim do cabeçalho */
+
+
+/*  MENU DE OPCOES NO CABECALHO  */
+.cont-menu {
+    height: 22px;
+    margin: 0 auto 30px;
+    position: relative;
+    width: 100%;
+    list-style: none;
+
+}
+
+.menu-container{    
+    margin: 0 auto;
+    width: 450px;    
+}
+
+.menu_principal {
+    background: none repeat scroll 0 0 #EFEFEF;
+    border: 1px solid white;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 3px 1px #CCCCCC;
+    height: 37px;    
+    position: relative;   
+}
+.child-menu {
+    position: absolute !important;    
+    margin: 0 auto;
+    list-style: none;   
+}
+
+.child-menu li a{
+    background: none repeat scroll 0 0 transparent;
+    border-radius: 3px 3px 3px 3px;
+    color: #232324;
+    display: block;
+    font-family: tahoma;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 26px;
+    margin: 0 12px !important;
+    padding: 0 6px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    top: 2px;
+    transition-duration: 0.3s, 0.3s, 0.3s;
+    transition-property: background, box-shadow, color;
+}
+
+.child-menu li a:hover{
+    background: none repeat scroll 0 0 yellowgreen;
+    box-shadow: 1px 1px 2px -1px rgba(0,0,0,0.8);
+    color: #FFFFFF;
+    transition-duration: 0.3s, 1s, 0.3s;
+    transition-property: background,box-shadow,color;
+}
+
+.child-menu li.selected a{
+    background: none repeat scroll 0 0 yellowgreen;
+    box-shadow: 1px 1px 2px -1px rgba(0,0,0,0.8);
+    color: #FFFFFF;
+    transition-duration: 0.3s, 1s, 0.3s;
+    transition-property: background,box-shadow,color;
+}
+
+ul.child-menu li {
+    border-left: 1px dotted #A9A9A9;
+    float: left;
+    margin: 4px 0 !important;
+}
+
+ul {
+    color: #4C4C4D;
+    font-size: 13px;
+    font-style: normal;
+    list-style: disc outside none;
+}
+
+ul ul {
+    list-style-type: circle;
+}
+
+.ultra-big-white {    
+    text-transform: uppercase;
+    font-size: 60px;
+    letter-spacing: 6px;
+    font-weight: 700;
+    color: #fff;    
+    line-height: 72px;
+    border: solid 6px rgba(255, 255, 255, .1);
+    margin: 10px;
+}
+
+.box, .box-title {
+    color: #069;
+    font-family: 'Trebuchet MS',arial;
+    font-size: 28px;
+    font-weight: normal;
+    margin-top: 0;
+}
+.box-title {
+    border-bottom: 1px solid #CCC;
+    line-height: 30px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+}
+
+.box p{
+    color: #4C4C4D;    
+    font-size: 12px;    
+}
+
+
+
+#menu ul {
+    color: #4C4C4D;
+    font-size: 13px;
+    font-style: normal;
+    list-style: disc outside;
+}
+
+#menu ul li #iconRegiao {
+    min-width: 250px!important;
+}
+#menu ul li #iconRegiao {
+    min-width: 258px;
+    position: relative;
+    float: right;
+    height: 100px;
+    text-decoration: none;
+    transition: 1s;
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+}
+#menu ul li a {
+    color: #999;
+}
+
+#menu ul li{    
+    position: relative;
+    float: left;
+    height: 90px;
+    width: auto;
+    border-radius: 10px;
+    background: #ddd;
+    background: -moz-linear-gradient(top,#fff 43%,#ddd 100%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(43%,#fff),color-stop(100%,#ddd));
+    background: -webkit-linear-gradient(top,#fff 43%,#ddd 100%);
+    background: -o-linear-gradient(top,#fff 43%,#ddd 100%);
+    background: -ms-linear-gradient(top,#fff 43%,#ddd 100%);
+    background: linear-gradient(top,#fff 43%,#ddd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dddddd',GradientType=0);
+    -webkit-box-shadow: 0 0 4px #999;
+    box-shadow: 0 0 4px #999;
+    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+    font-size: 22px;
+    color: #666;
+    list-style-type: none;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 25px;
+    margin-left: -10px;
+    margin-top: 10px;
+    transition: 2s;
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+
+}
+
+#menu ul li #iconRegiao:hover {   
+    color: #0C5500;
+    transition: 1s;
+    -moz-transition: 2s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+}
+
+#menu ul li:hover{
+    background: -moz-linear-gradient(center top, #fff 43%, darkgreen 100%) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top,#fff 43%,yellowgreen 100%);
+    box-shadow: 0 0 4px darkgreen;
+    transition: all 1s ease 0s;
+}
+
+#content-css{
+        padding-left: 10px;
+    }
+
+
+@media (min-width: 420px) and (max-width: 768px){
+
+
+    #imgAltCur {
+        padding-left: 30px;
+        width: 30%;		
+
+    }
+
+    #imgAltCur a img{            
+        height: 30%;
+
+    }
+    
+    #uft-logo a img{
+        height: 40%;
+    }
+    
+    #systemTitle{
+        min-width: 200px !important;
+        margin-left: 70px !important;
+    }
+    
+    #max-title{ display: none;}
+    
+    #systemTitle .ultra-big-white{
+        font-size: 60px !important;
+    }
+    
+    #menu{
+        max-width: 400px;
+    }
+    
+     #menu ul li{
+        margin-top: 10px;
+    }
+    
+    #content-css{
+        padding-left: 10px;
+    }
+    #title-description{
+        display: none;
+    }
+
+}
+
+@media (min-width: 200px) and (max-width: 419px){
+
+      
+    #uft-logo{
+        display: none;
+    }
+    
+    #systemTitle{
+        min-width: 200px !important;
+        margin-left: 70px !important;
+    }
+    
+    #max-title{ display: none;}
+    
+    #systemTitle .ultra-big-white{
+        font-size: 60px !important;
+    }
+    
+    #menu{
+        max-width: 400px;
+    }
+    
+    #menu ul li{
+        margin-top: 10px;
+    }
+    
+    #content-css{
+        padding-left: 10px;
+    }
+    
+    #title-description{
+        display: none;
+    }
+       
+}
+
+.breadcrumb a{
+    text-decoration: none;
+    color: #069;
+}
+
+.breadcrumb a:hover{
+    font-weight: bolder;    
+}
+/* FIM DO MENU */

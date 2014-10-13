@@ -1,0 +1,44 @@
+
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.2" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.2
+                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.2.xsd">   
+    
+    
+    <url-mapping id="inicial">
+        <pattern value="/inicial" />
+        <view-id value="/index.jsf" /> 
+    </url-mapping>    
+    
+    <url-mapping id="estatistico">
+        <pattern value="/estatistico" />
+        <view-id value="/estatistica.jsf" /> 
+    </url-mapping>
+    
+    <url-mapping id="edital">
+        <pattern value="/estatistico/edital" />
+        <view-id value="/edital.jsf" /> 
+    </url-mapping>
+    
+    <url-mapping id="producaoCurso">
+        <pattern value="/estatistico/producao/curso" />
+        <view-id value="/producaoCurso.jsf" /> 
+    </url-mapping>
+    
+    <url-mapping id="analiseInstituicao">
+        <pattern value="/estatistico/analise/instituicao" />
+        <view-id value="/analiseInstituicao.jsf" /> 
+    </url-mapping>
+    
+    <url-mapping id="pesquisa">
+        <pattern value="/pesquisa" />
+        <view-id value="/pesquisa.jsf" /> 
+    </url-mapping>
+    
+    <url-mapping id="grafos">
+        <pattern value="/grafos" />
+        <view-id value="/grafos.jsf" /> 
+    </url-mapping>  
+        
+        
+</pretty-config>

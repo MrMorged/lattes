@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml">
+
+    <ui:define name="content">    
+        <div class="col-1-1 box" style="padding-top: 20px;">
+            <h2 class="box-title">Dados Estatísticos</h2>
+            <p id="title-description">O SRI-MVp disponibiliza os serviços de Análise de instituições, produções por cursos e Edital de pesquisa. Em Análise de instituições o usuário pode verificar as produções por campis da UFT. Em Produções por curso o usuário visualiza as porcentagens e métricas de produções realizadas em um determinado curso. E em Edital de Pesquisa o usuário pode anexar editais e realizar buscas com palavras-chave extraídas deste edital, retornando ranqueamento dos pesquisadores que atendam ao edital, e representando a saída por meio de gráficos analíticos.</p>
+        </div> 
+
+        <div style="margin: 0 auto; text-align: center;">
+            <div id="menu" style="padding-top: 20px; text-align: left;">
+                <ul>
+                    <li>
+                        <a href="estatistico/producao/curso" id="iconRegiao">Produções<span class="fa fa-mortar-board" style="font-size: 70px; float: right;"/><br/>por Curso</a>
+                    </li>
+                    <li>
+                        <a href="estatistico/analise/instituicao" id="iconRegiao">Análise<span class="fa fa-building-o" style="font-size: 70px; float: right;"/><br/>da Instituição</a>
+                    </li>
+                    <li>
+                        <a href="estatistico/edital" id="iconRegiao">Edital<span class="fa fa-file-pdf-o" style="font-size: 70px; float: right;"/><br/>de Pesquisa</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

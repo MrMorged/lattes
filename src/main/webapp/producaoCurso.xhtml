@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">    
+
+        <div class="col-1-1 box breadcrumb" style="padding-top: 10px; font-size: 12px;">
+            <a href="#{facesContext.externalContext.applicationContextPath}/inicial"><i class="fa fa-home" /> Home</a> > <a href="#{facesContext.externalContext.applicationContextPath}/estatistico">Estatistico</a> > Produção por Curso
+        </div>       
+
+        <div class="col-1-1 box" style="padding-top: 20px;">
+            <h2 class="box-title">Produção por Curso</h2>
+            <p id="title-description"></p>
+        </div>
+        <h:form prependId="false" id="form">
+            <div class="col-1-1 box" style="padding-top: 5px;">
+                <div class="col-6-12" style="border-right: 2px solid yellowgreen" >
+                    <h:panelGrid columns="2" cellspacing="6" style="margin-top: -2px;">
+                        <h:outputText value="INSTITUIÇÃO" style="font-weight: bold; font-size: 12px;"/>
+                        <p:selectOneMenu>
+                            <f:selectItem itemLabel="Universidade Federal do Tocantins"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="CAMPUS" style="font-weight: bold; font-size: 12px;"/> 
+                        <p:selectOneMenu value="#{campusController.selecionado}" converter="Converter">
+                            <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                            <f:selectItems value="#{campusController.loadTodosCampi()}" var="campus" itemLabel="#{campus.descricao}" itemValue="#{campus}"/>
+                            <p:ajax update="form:curso"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="CURSO" style="font-weight: bold; font-size: 12px; margin-top: -10px;"/> 
+                        <h:panelGrid id="curso" style="margin-top: -5px; margin-left: -3px;">
+                            <p:selectOneMenu value="#{cursoController.selecionado}" converter="Converter"> 
+                                <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                                <f:selectItems value="#{cursoController.loadTodosCursosPorCampus()}" var="curso" itemLabel="#{curso.descricao}" itemValue="#{curso}"/>
+                                <p:ajax event="change" update="form:grupo"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </div>
+                <div class="col-6-12">
+                    <h:panelGrid columns="2" cellspacing="10" style="margin-top: 5px;">
+                        <h:outputText value="GRUPO" style="font-weight: bold; font-size: 12px;"/>
+                        <p:selectOneMenu id="grupo" value="#{cursoController.grupoSelecionado}" style="width: 185px;">
+                            <f:selectItem itemLabel="Selecione" transient="true" />
+                            <f:selectItem itemLabel="Produções Técnicas" itemValue="prodTecnicas" />
+                            <f:selectItem itemLabel="Produções Bibliográficas" itemValue="prodBiblio" />
+                            <f:selectItem itemLabel="Orientações" itemValue="orientacoes" />
+                            <f:selectItem itemLabel="Eventos" itemValue="eventos" />
+                            <p:ajax event="change" update="form:subGrupo"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </div>
+                <br/>
+
+                <div class="col-1-1">
+                    <p:separator style="border-color: yellowgreen; "/>
+                </div>
+                <div class="col-1-1">
+                    <h:panelGrid columns="2" cellspacing="10" >
+                        <h:outputText value="SUB-GRUPO" style="font-weight: bold; font-size: 12px;"/>
+                        <p:selectOneMenu id="subGrupo" value="#{cursoController.subGrupoSelecionado}">
+                            <f:selectItem itemLabel="Selecione" transient="true"/>
+                            <f:selectItems value="#{cursoController.carregaSubGupo()}" var="sub" itemLabel="#{sub}" itemValue="#{sub}"/>
+                            <p:ajax event="change" listener="#{cursoController.plotaSubGrupo()}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </div>
+                <div class="col-6-12" style="border-right: 2px solid yellowgreen" >
+                    <div class="grafico" id="divGrafico" style="width: 100%; height: 300px; " />
+                </div>
+                <div class="col-6-12">                                
+                    <div class="grafico2" id="divGrafico2" style="width: 100%; height: 300px;" />
+                </div>                
+            </div>      
+        </h:form>
+        <div style="clear: both" />
+    </ui:define>
+
+</ui:composition>

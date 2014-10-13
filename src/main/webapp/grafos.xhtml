@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">    
+
+        <div class="col-1-1 box breadcrumb" style="padding-top: 10px; font-size: 12px;">
+            <a href="#{facesContext.externalContext.applicationContextPath}/inicial"><i class="fa fa-home" /> Home</a>  > Grafos
+        </div>       
+
+        <div class="col-1-1 box" style="padding-top: 20px;">
+            <h2 class="box-title">Grafos</h2>
+            <p id="title-description"></p>
+        </div>
+
+        <div class="col-1-1 box" style="padding-top: 5px;">
+            <h:form prependId="false" id="form">                            
+                <h:panelGrid columns="2" id="panelInfor">
+                    <h:outputLabel value="Quantidade de Palavras" />
+                    <p:inputText id="dadosEnvio" size="60" value="#{lattesInforController.size}">
+
+                    </p:inputText>
+                    <h:outputText value="#{lattesInforController.pdfName}" 
+                                  rendered="#{lattesInforController.renderPdfText}"/>
+                    <h:outputLink style="text-decoration: none; color: #069"
+                                  value="#" 
+                                  onclick="PF('upload').show();">
+                        <i class="fa fa-upload"/> Anexar edital</h:outputLink>
+
+                    <f:facet name="footer">
+                        <div style="margin-top: 15px; padding-top: 5px;border-top: 1px solid #CCC;">
+                            <h:panelGrid columns="2" style="text-align: right;">
+                                
+                                <p:commandButton value="enviar" actionListener="#{lattesInforController.search()}"
+                                                 update=":formResult"
+                                                 />
+                                <p:ajaxStatus styleClass="ajax-status">
+                                    <f:facet name="start">
+                                        <h:graphicImage library="img" name="ajaxStatus.gif" />
+                                    </f:facet>
+                                    <f:facet name="complete">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:ajaxStatus>
+                            </h:panelGrid>
+                        </div>
+                    </f:facet>
+                </h:panelGrid>                            
+            </h:form>
+        </div>
+
+        <h:form>
+            <p:dialog header="Upload" widgetVar="upload">
+                <p:fileUpload fileUploadListener="#{lattesInforController.handleFileUpload}" mode="advanced"
+                              dragDropSupport="false"
+                              auto="true"
+                              multiple="true"
+                              update=":form:panelInfor" sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/" />
+            </p:dialog>
+        </h:form>
+
+        <h:form id="formResult" prependId="false" >
+            <h:panelGroup id="result" rendered="#{lattesInforController.instance.results != null and not empty lattesInforController.instance.results}">
+                <div class="col-1-1 box" style="padding-top: 10px;">
+                    <h2 class="box-title">Resultado da pesquisa</h2>                
+                </div>
+                <div class="col-1-1">
+                    <p:dataTable var="result" value="#{lattesInforController.instance.results}" rows="#{lattesInforController.size}">
+                        <p:column headerText="Palavra">
+                            <h:outputText value="#{result.word}" />
+                        </p:column>
+
+                        <p:column headerText="Quantidade">
+                            <h:outputText value="#{result.count}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>   
+                <div>
+                    <p:commandButton value="pesquisar" actionListener="#{lattesInforController.searchWords()}"/>
+                </div>
+                <div style="clear: both"></div>
+            </h:panelGroup>
+        </h:form>
+        <div style="clear: both; height: 100px;"></div>
+        <p:dialog header="Selecionar PDF" widgetVar="pdfDialog"  position="top">
+
+        </p:dialog>               
+    </ui:define>
+
+</ui:composition>

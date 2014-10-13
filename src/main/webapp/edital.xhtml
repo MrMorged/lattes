@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">    
+
+        <div class="col-1-1 box breadcrumb" style="padding-top: 10px; font-size: 12px;">
+            <a href="#{facesContext.externalContext.applicationContextPath}/inicial"><i class="fa fa-home" /> Home</a> > <a href="#{facesContext.externalContext.applicationContextPath}/estatistico">Estatistico</a> > Edital
+        </div>       
+
+        <div class="col-1-1 box" style="padding-top: 20px;">
+            <h2 class="box-title">Edital</h2>
+            <p id="title-description"></p>
+        </div>
+
+        <div class="col-1-1 box" style="padding-top: 5px;">
+            <h:form prependId="false">                            
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Palavras" />
+                    <p:inputText id="dadosEnvio" size="60" value="#{indexingController.palavra}"/>
+                    <h:outputLink style="text-decoration: none; color: #069" value="#" onclick="PF('pdfDialog').show();"><i class="fa fa-upload"/> Anexar edital</h:outputLink>
+                    <h:outputLabel value="Instituição" />                                        
+                    <p:selectOneMenu  effect="fade" id="grandeArea" value="#{cursoController.grupoSelecionado}" style="width: 378px;">
+                        <f:selectItem itemLabel="Selecione" transient="true" />
+                        <f:selectItem itemLabel="Universidade Federal do Tocantins" itemValue="agrarias" />
+                        <f:selectItem itemLabel="Instituto Federal do Tocantins" itemValue="biologicas" />
+                        <f:selectItem itemLabel="Universidade Federal do Amazonas" itemValue="saude" />
+                        <f:selectItem itemLabel="Universidade Federal do Goiás" itemValue="exatas" />
+                        <f:selectItem itemLabel="Universidade de Brasília" itemValue="humanas" />
+                        <f:selectItem itemLabel="Universidade Federal do Pará" itemValue="sociais" />
+                        <f:selectItem itemLabel="Universidade Estadual do Pará" itemValue="engenharias" />
+                        <p:ajax event="change"/>
+                    </p:selectOneMenu>                    
+
+
+
+                    <f:facet name="footer">
+                        <div style="margin-top: 15px; padding-top: 5px;border-top: 1px solid #CCC;">
+                            <h:panelGrid columns="2" style="text-align: right;">
+                                <p:commandButton value="enviar" actionListener="#{indexingController.resultadoPesquisa2()}"
+                                                 update=":formResult"/>
+                                <p:ajaxStatus styleClass="ajax-status">
+                                    <f:facet name="start">
+                                        <h:graphicImage library="img" name="ajaxStatus.gif" />
+                                    </f:facet>
+                                    <f:facet name="complete">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:ajaxStatus>
+                            </h:panelGrid>
+                        </div>
+                    </f:facet>
+                </h:panelGrid>                            
+            </h:form>
+        </div>
+
+        <h:form id="formResult" prependId="false" >
+            <h:panelGroup id="result" rendered="#{indexingController.root != null}">
+                <div class="col-1-1 box" style="padding-top: 10px;">
+                    <h2 class="box-title">Resultado da pesquisa</h2>                
+                </div>
+
+                <div class="col-1-1">
+                    <p:tabView dynamic="true" cache="false">
+                        <p:tab title="Arvore de resultados">  
+                            <p:tree  id="tree2" value="#{indexingController.root}"  var="node" orientation="ve"
+                                     widgetVar="tree" dynamic="true" cache="false" 
+                                     style="font-size: 12px;" selectionMode="single" >
+                                <p:ajax event="select" listener="#{indexingController.onNodeExpand}" update=":membroDetail"/>
+                                <p:treeNode id="treeNode" >
+                                    <h:outputText style="font-size: 10px;" value="#{node.nome}" rendered="#{indexingController.verificarMembro(node)}"/>
+                                    <h:outputText style="font-size: 10px;" value="#{node}" rendered="#{!indexingController.verificarMembro(node)}"/>
+                                </p:treeNode>
+                            </p:tree>
+                        </p:tab>
+                        <p:tab title="Rankeamento" >
+
+
+
+                            <p:dataList  paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" 
+                                         var="result" id="resultado" value="#{indexingController.resultadoPesquisa()}" 
+                                         type="unordered" itemType="none">
+                                <h:panelGrid columns="1" >
+                                    <h:column>
+                                        <p:panel style="background: white !important; width: 600px; font-size: 10px !important;">
+                                            <div class="col-4-10" style="float: left">                    
+                                                <img src="#{facesContext.externalContext.request.contextPath}/resources/imagem/#{result.nome}.jpg"
+                                                     height="100"/>
+                                            </div>
+                                            <div class="col-6-10">
+                                                <h:panelGrid columns="2" cellspacing="5">
+                                                    <h:outputLabel value="Nome do Pesquisador: " />
+                                                    <h:outputText value="#{result.nome}" />
+                                                    <h:outputLabel value="Curriculo Lattes: " />
+                                                    <h:outputLink value="http://lattes.cnpq.br/#{result.idLattes}" 
+                                                                  style="font-size: 20px; font-weight: bold; color: yellowgreen; margin-left: 10px;">Acessar</h:outputLink>
+                                                    <h:outputText value="Areas Atuação: "/>
+                                                    <h:outputText value="#{result.frequencia}" /> <br/>                                                                                                                                                                                                                                               
+                                                </h:panelGrid>                                                                                  
+                                            </div>                                            
+                                            <div style="clear: both"/> 
+                                            <hr style="border: 1px solid yellowgreen;" />
+
+                                            <div style="bottom: 0; text-align: right; font-size: 10px;">
+                                                <p:commandButton actionListener="#{indexingController.setMembroSelected(result)}" 
+                                                                 update=":membroDetail"
+                                                                 oncomplete="PF('pesquisadorDialog').show();" value="Visualizar Gráfico"/><br/>
+                                            </div>
+                                        </p:panel>
+                                    </h:column>
+                                </h:panelGrid>
+                            </p:dataList>                            
+                        </p:tab>                    
+                    </p:tabView>
+                </div>   
+                <div style="clear: both"></div>
+            </h:panelGroup>
+        </h:form>
+        <div style="clear: both; height: 100px;"></div>
+        <p:dialog header="Anexar pdf" widgetVar="pdfDialog"  position="top">
+            <p:scrollPanel mode="native" style="width:800px;height:550px">
+                <iframe  id="pdfFrame" name="inline" src="#{facesContext.externalContext.requestContextPath}/build/generic/web/viewer.html" 
+                         style="margin-top: 0px" 
+                         frameborder="0" scrolling="auto" width="796" height="546" marginwidth="5" marginheight="5" />
+            </p:scrollPanel>            
+        </p:dialog>
+
+        <p:dialog header="Estatistica do Pesquisador" widgetVar="pesquisadorDialog" appendTo="@(body)" position="top"
+                  >
+            <h:panelGroup id="membroDetail" layout="block">
+                <div class="col-4-10" style="float: left">                    
+                    <img src="#{facesContext.externalContext.request.contextPath}/resources/imagem/#{indexingController.membroSelected.nome}.jpg"
+                         height="150"/>
+                </div>
+                <div class="col-6-10" style="float: left">
+                    <h:panelGrid columns="2" cellspacing="5">
+                        <h:outputLabel value="Nome do Pesquisador: " />
+                        <h:outputText value="#{indexingController.membroSelected.nome}" />
+                        <h:outputLabel value="Curriculo Lattes: " />
+                        <h:outputLink value="http://lattes.cnpq.br/#{indexingController.membroSelected.idLattes}" 
+                                      style="font-size: 20px; font-weight: bold; color: yellowgreen; margin-left: 10px;">Acessar</h:outputLink>
+                        <h:outputText value="Areas Atuação: "/>
+                        <h:outputText value="#{indexingController.membroSelected.frequencia}" /> <br/>                                    
+                    </h:panelGrid>                                        
+                    <h:outputText value="#{indexingController.plotarGrafico(indexingController.membroSelected)}" rendered="#{indexingController.membroSelected != null}"/>
+                </div>                                
+                <div style="clear: both"></div>                
+                <br/>
+                    <div id="chart_div_#{indexingController.membroSelected.idLattes}" 
+                         style="width: 100%; border: 1px solid #CCC; background-color: white"></div>                
+            </h:panelGroup>
+        </p:dialog>
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" />
+        <script>
+
+                        function callIframe() {
+                            var values = JSON.parse(document.getElementById('pdfFrame').contentWindow.getAllTextsSelecteds());
+                            console.log(values);
+                            var text = "";
+                            /*<![CDATA[*/
+                            for (var i = 0; i < values.length; i++) {
+                                if (i === 0) {
+                                    text = values[i];
+                                } else {
+                                    text = text + ";" + values[i];
+                                }
+                            }
+                            /*]]>*/
+                            $("#dadosEnvio").val(text);
+                        }
+
+                        // Load the Visualization API and the piechart package.
+                        google.load('visualization', '1.0', {'packages': ['corechart']});
+
+                        // Set a callback to run when the Google Visualization API is loaded.
+                        //google.setOnLoadCallback(drawChart);
+
+                        // Callback that creates and populates a data table,
+                        // instantiates the pie chart, passes in the data and
+                        // draws it.
+                        function drawChart(id, dataJson) {
+
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'Proveniencias');
+                            data.addColumn('number', 'Ocorrencias');
+                            varia = JSON.parse(dataJson);
+                            //console.log(varia);
+                            dataTemp = [];
+                            /*<![CDATA[*/
+                            for (i in varia.atributos) {
+                                dataTemp.push(new Array("" + i, varia.atributos[i]));
+                            }
+                            console.log(dataTemp);
+                            /*]]>*/
+                            data.addRows(dataTemp);
+                            /*data.addRows([                  ['Areas de Atuação', 3],
+                             ['Artigos Publicados', 6],
+                             ['Livros escritos', 3],
+                             ['Trabalhos Relacionados', 1],
+                             ['Premios e Títulos', 34]
+                             ]);*/
+                            // Set chart options
+                            var options = {'title': 'Estatísticas ',
+                                'width': 600,
+                                is3D: true,
+                                'height': 300};
+
+                            // Instantiate and draw our chart, passing in some options.                
+                            var chart = new google.visualization.PieChart(document.getElementById('chart_div_' + id));
+                            chart.draw(data, options);
+                        }
+
+        </script>
+    </ui:define>
+
+</ui:composition>
